@@ -9,10 +9,12 @@
     <ApplicationIcon>scssmicon.ico</ApplicationIcon>
     <AssemblyName>SCSSM</AssemblyName>
     <RootNamespace>SCSSM</RootNamespace>
-    <FileVersion>1.2</FileVersion>
-    <PackageProjectUrl>https://github.com/SioNisti</PackageProjectUrl>
+    <FileVersion>1.3</FileVersion>
+    <PackageProjectUrl>https://github.com/SioNisti/SCSSM</PackageProjectUrl>
     <Authors>SioN</Authors>
-    <Version>1.2</Version>
+    <Version>1.3</Version>
+    <Copyright>SioN</Copyright>
+    <RepositoryUrl>https://github.com/SioNisti/SCSSM</RepositoryUrl>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
