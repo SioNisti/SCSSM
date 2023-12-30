@@ -1,3 +1,4 @@
+using SCSSM;
 using System.Diagnostics;
 
 namespace cspracSaveloader
@@ -10,9 +11,7 @@ namespace cspracSaveloader
         }
 
         public string gamePath = @"P:\studio pixel games\doukutsu\csprac";
-        public string savePath = @"P:\studio pixel games\doukutsu\csprac\save";/*
-        public string gamePath = @"";
-        public string savePath = @"";*/
+        public string savePath = @"P:\studio pixel games\doukutsu\csprac\save";
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -24,14 +23,16 @@ namespace cspracSaveloader
             savePath = Path.Combine(Directory.GetCurrentDirectory(), "save");
             gamePath = Directory.GetCurrentDirectory();
 
+            Debug.WriteLine(gamePath);
+
             loadList();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnLoad_Click(object sender, EventArgs e)
         {
-            if (File.Exists($"{savePath}/{listBox1.GetItemText(listBox1.SelectedItem)}.dat"))
+            if (File.Exists($@"{savePath}\{saveList.GetItemText(saveList.SelectedItem)}.dat"))
             {
-                File.Copy($"{savePath}/{listBox1.GetItemText(listBox1.SelectedItem)}.dat", $"{gamePath}/Profile.dat", true);
+                File.Copy($@"{savePath}\{saveList.GetItemText(saveList.SelectedItem)}.dat", @$"{gamePath}\Profile.dat", true);
             }
             else
             {
@@ -40,16 +41,16 @@ namespace cspracSaveloader
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void btnSave_Click(object sender, EventArgs e)
         {
-            if (textBox1.Text.Length > 0)
+            if (nameBox.Text.Length > 0)
             {
-                if (File.Exists($"{gamePath}/Profile.dat"))
+                if (File.Exists(@$"{gamePath}\Profile.dat"))
                 {
-                    var confirmResult = MessageBox.Show($"Are you sure you want to save a new save with the name?\n{textBox1.Text}", "Confirm Save", MessageBoxButtons.YesNo);
+                    var confirmResult = MessageBox.Show($"Are you sure you want to save a new save with the name?\n{nameBox.Text}", "Confirm Save", MessageBoxButtons.YesNo);
                     if (confirmResult == DialogResult.Yes)
                     {
-                        File.Copy($"{gamePath}/Profile.dat", $"{savePath}/{textBox1.Text}.dat", true);
+                        File.Copy(@$"{gamePath}\Profile.dat", @$"{savePath}\{nameBox.Text}.dat", true);
                         loadList();
                     }
                 }
@@ -66,7 +67,7 @@ namespace cspracSaveloader
 
         public void loadList()
         {
-            listBox1.Items.Clear();
+            saveList.Items.Clear();
             string[] files = Directory.GetFiles(savePath);
             Array.Sort(files);
             if (files.Length > 0)
@@ -75,20 +76,20 @@ namespace cspracSaveloader
                 {
                     if (Path.GetExtension(file) == ".dat")
                     {
-                        listBox1.Items.Add(Path.GetFileNameWithoutExtension(file));
+                        saveList.Items.Add(Path.GetFileNameWithoutExtension(file));
                     }
                 }
             }
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void btnDel_Click(object sender, EventArgs e)
         {
-            if (File.Exists($"{savePath}/{listBox1.GetItemText(listBox1.SelectedItem)}.dat"))
+            if (File.Exists($@"{savePath}\{saveList.GetItemText(saveList.SelectedItem)}.dat"))
             {
-                var confirmResult = MessageBox.Show($"Are you sure you want to delete the save?\n{listBox1.GetItemText(listBox1.SelectedItem)}", "Confirm Deletion", MessageBoxButtons.YesNo);
+                var confirmResult = MessageBox.Show($"Are you sure you want to delete the save?\n{saveList.GetItemText(saveList.SelectedItem)}", "Confirm Deletion", MessageBoxButtons.YesNo);
                 if (confirmResult == DialogResult.Yes)
                 {
-                    File.Delete($"{savePath}/{listBox1.GetItemText(listBox1.SelectedItem)}.dat");
+                    File.Delete($@"{savePath}\{saveList.GetItemText(saveList.SelectedItem)}.dat");
                 }
             }
             else
@@ -96,6 +97,49 @@ namespace cspracSaveloader
                 MessageBox.Show($"Selected save doesn't exist", "Err", MessageBoxButtons.OK);
             }
 
+            loadList();
+        }
+
+        private void savelistMenu_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (saveList.SelectedItems.Count < 1)
+            {
+                saveList.ContextMenuStrip.Items[0].Enabled = false;
+                saveList.ContextMenuStrip.Items[1].Enabled = false;
+            }
+            else
+            {
+                saveList.ContextMenuStrip.Items[0].Enabled = true;
+                saveList.ContextMenuStrip.Items[1].Enabled = true;
+            }
+        }
+
+        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (File.Exists(@$"{savePath}\{saveList.GetItemText(saveList.SelectedItem)}.dat"))
+            {
+                var confirmResult = MessageBox.Show($"Are you sure you want to delete the save?\n{saveList.GetItemText(saveList.SelectedItem)}", "Confirm Deletion", MessageBoxButtons.YesNo);
+                if (confirmResult == DialogResult.Yes)
+                {
+                    File.Delete(@$"{savePath}\{saveList.GetItemText(saveList.SelectedItem)}.dat");
+                }
+            }
+            else
+            {
+                MessageBox.Show($"Selected save doesn't exist", "Err", MessageBoxButtons.OK);
+            }
+
+            loadList();
+        }
+
+        private void renameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            renameDialog renameDialog = new renameDialog(@$"{savePath}\{saveList.GetItemText(saveList.SelectedItem)}");
+            renameDialog.ShowDialog();
+        }
+
+        private void refreshListToolStripMenuItem_Click(object sender, EventArgs e)
+        {
             loadList();
         }
     }

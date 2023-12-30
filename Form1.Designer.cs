@@ -28,76 +28,96 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            listBox1 = new ListBox();
-            button1 = new Button();
-            button2 = new Button();
-            textBox1 = new TextBox();
-            button3 = new Button();
+            saveList = new ListBox();
+            savelistMenu = new ContextMenuStrip(components);
+            renameToolStripMenuItem = new ToolStripMenuItem();
+            deleteToolStripMenuItem = new ToolStripMenuItem();
+            btnLoad = new Button();
+            btnSave = new Button();
+            nameBox = new TextBox();
+            refreshListToolStripMenuItem = new ToolStripMenuItem();
+            savelistMenu.SuspendLayout();
             SuspendLayout();
             // 
-            // listBox1
+            // saveList
             // 
-            listBox1.BackColor = Color.FromArgb(64, 64, 64);
-            listBox1.ForeColor = Color.White;
-            listBox1.FormattingEnabled = true;
-            listBox1.ItemHeight = 15;
-            listBox1.Location = new Point(12, 12);
-            listBox1.Name = "listBox1";
-            listBox1.Size = new Size(235, 229);
-            listBox1.TabIndex = 0;
+            saveList.BackColor = Color.FromArgb(64, 64, 64);
+            saveList.ContextMenuStrip = savelistMenu;
+            saveList.ForeColor = Color.White;
+            saveList.FormattingEnabled = true;
+            saveList.ItemHeight = 15;
+            saveList.Location = new Point(12, 12);
+            saveList.Name = "saveList";
+            saveList.Size = new Size(235, 229);
+            saveList.TabIndex = 0;
             // 
-            // button1
+            // savelistMenu
             // 
-            button1.BackColor = Color.FromArgb(64, 64, 64);
-            button1.BackgroundImageLayout = ImageLayout.None;
-            button1.FlatAppearance.BorderSize = 0;
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.ForeColor = Color.White;
-            button1.Location = new Point(12, 247);
-            button1.Name = "button1";
-            button1.Size = new Size(75, 23);
-            button1.TabIndex = 1;
-            button1.Text = "Load";
-            button1.UseVisualStyleBackColor = false;
-            button1.Click += button1_Click;
+            savelistMenu.Items.AddRange(new ToolStripItem[] { renameToolStripMenuItem, deleteToolStripMenuItem, refreshListToolStripMenuItem });
+            savelistMenu.Name = "contextMenuStrip1";
+            savelistMenu.Size = new Size(181, 92);
+            savelistMenu.Opening += savelistMenu_Opening;
             // 
-            // button2
+            // renameToolStripMenuItem
             // 
-            button2.BackColor = Color.FromArgb(64, 64, 64);
-            button2.FlatAppearance.BorderSize = 0;
-            button2.FlatStyle = FlatStyle.Flat;
-            button2.ForeColor = Color.White;
-            button2.Location = new Point(12, 276);
-            button2.Name = "button2";
-            button2.Size = new Size(59, 23);
-            button2.TabIndex = 2;
-            button2.Text = "Save As";
-            button2.UseVisualStyleBackColor = false;
-            button2.Click += button2_Click;
+            renameToolStripMenuItem.Name = "renameToolStripMenuItem";
+            renameToolStripMenuItem.Size = new Size(180, 22);
+            renameToolStripMenuItem.Text = "Rename";
+            renameToolStripMenuItem.Click += renameToolStripMenuItem_Click;
             // 
-            // textBox1
+            // deleteToolStripMenuItem
             // 
-            textBox1.BackColor = Color.FromArgb(64, 64, 64);
-            textBox1.ForeColor = Color.White;
-            textBox1.Location = new Point(76, 276);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(171, 23);
-            textBox1.TabIndex = 3;
+            deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
+            deleteToolStripMenuItem.Size = new Size(180, 22);
+            deleteToolStripMenuItem.Text = "Delete";
+            deleteToolStripMenuItem.Click += deleteToolStripMenuItem_Click;
             // 
-            // button3
+            // btnLoad
             // 
-            button3.BackColor = Color.FromArgb(64, 64, 64);
-            button3.FlatAppearance.BorderSize = 0;
-            button3.FlatStyle = FlatStyle.Flat;
-            button3.ForeColor = Color.White;
-            button3.Location = new Point(172, 247);
-            button3.Name = "button3";
-            button3.Size = new Size(75, 23);
-            button3.TabIndex = 4;
-            button3.Text = "Delete";
-            button3.UseVisualStyleBackColor = false;
-            button3.Click += button3_Click;
+            btnLoad.BackColor = Color.FromArgb(64, 64, 64);
+            btnLoad.BackgroundImageLayout = ImageLayout.None;
+            btnLoad.FlatAppearance.BorderSize = 0;
+            btnLoad.FlatStyle = FlatStyle.Flat;
+            btnLoad.ForeColor = Color.White;
+            btnLoad.Location = new Point(12, 247);
+            btnLoad.Name = "btnLoad";
+            btnLoad.Size = new Size(235, 23);
+            btnLoad.TabIndex = 1;
+            btnLoad.Text = "Load";
+            btnLoad.UseVisualStyleBackColor = false;
+            btnLoad.Click += btnLoad_Click;
+            // 
+            // btnSave
+            // 
+            btnSave.BackColor = Color.FromArgb(64, 64, 64);
+            btnSave.FlatAppearance.BorderSize = 0;
+            btnSave.FlatStyle = FlatStyle.Flat;
+            btnSave.ForeColor = Color.White;
+            btnSave.Location = new Point(12, 276);
+            btnSave.Name = "btnSave";
+            btnSave.Size = new Size(59, 23);
+            btnSave.TabIndex = 2;
+            btnSave.Text = "Save As";
+            btnSave.UseVisualStyleBackColor = false;
+            btnSave.Click += btnSave_Click;
+            // 
+            // nameBox
+            // 
+            nameBox.BackColor = Color.FromArgb(64, 64, 64);
+            nameBox.ForeColor = Color.White;
+            nameBox.Location = new Point(76, 276);
+            nameBox.Name = "nameBox";
+            nameBox.Size = new Size(171, 23);
+            nameBox.TabIndex = 3;
+            // 
+            // refreshListToolStripMenuItem
+            // 
+            refreshListToolStripMenuItem.Name = "refreshListToolStripMenuItem";
+            refreshListToolStripMenuItem.Size = new Size(180, 22);
+            refreshListToolStripMenuItem.Text = "Refresh list";
+            refreshListToolStripMenuItem.Click += refreshListToolStripMenuItem_Click;
             // 
             // Form1
             // 
@@ -105,11 +125,10 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Black;
             ClientSize = new Size(259, 308);
-            Controls.Add(button3);
-            Controls.Add(textBox1);
-            Controls.Add(button2);
-            Controls.Add(button1);
-            Controls.Add(listBox1);
+            Controls.Add(nameBox);
+            Controls.Add(btnSave);
+            Controls.Add(btnLoad);
+            Controls.Add(saveList);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
@@ -117,16 +136,20 @@
             SizeGripStyle = SizeGripStyle.Hide;
             Text = "SCSSM";
             Load += Form1_Load;
+            savelistMenu.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private ListBox listBox1;
-        private Button button1;
-        private Button button2;
-        private TextBox textBox1;
-        private Button button3;
+        private ListBox saveList;
+        private Button btnLoad;
+        private Button btnSave;
+        private TextBox nameBox;
+        private ContextMenuStrip savelistMenu;
+        private ToolStripMenuItem deleteToolStripMenuItem;
+        private ToolStripMenuItem renameToolStripMenuItem;
+        private ToolStripMenuItem refreshListToolStripMenuItem;
     }
 }
